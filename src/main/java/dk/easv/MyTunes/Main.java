@@ -1,8 +1,5 @@
-package dk.easv.MyTunes_light;
+package dk.easv.MyTunes;
 
-import dk.easv.MyTunes_light.BE.Playlist;
-import dk.easv.MyTunes_light.BE.Song;
-import dk.easv.MyTunes_light.DAL.dao.PlaylistDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

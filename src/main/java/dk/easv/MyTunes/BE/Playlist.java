@@ -1,4 +1,4 @@
-package dk.easv.MyTunes_light.BE;
+package dk.easv.MyTunes.BE;
 
 import java.util.ArrayList;
 import java.util.List;

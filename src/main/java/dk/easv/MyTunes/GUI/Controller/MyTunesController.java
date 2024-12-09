@@ -1,12 +1,12 @@
-package dk.easv.MyTunes_light.GUI.Controller;
+package dk.easv.MyTunes.GUI.Controller;
 
-import dk.easv.MyTunes_light.BE.Playlist;
-import dk.easv.MyTunes_light.BE.Song;
-import dk.easv.MyTunes_light.BLL.MediaHandler;
-import dk.easv.MyTunes_light.GUI.Model.PlaylistModel;
-import dk.easv.MyTunes_light.GUI.Model.SongModel;
-import dk.easv.MyTunes_light.GUI.ModelHandler;
-import dk.easv.MyTunes_light.GUI.PopUp.PlaylistCreate;
+import dk.easv.MyTunes.BE.Playlist;
+import dk.easv.MyTunes.BE.Song;
+import dk.easv.MyTunes.BLL.MediaHandler;
+import dk.easv.MyTunes.GUI.Model.PlaylistModel;
+import dk.easv.MyTunes.GUI.Model.SongModel;
+import dk.easv.MyTunes.GUI.ModelHandler;
+import dk.easv.MyTunes.GUI.PopUp.PlaylistCreate;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

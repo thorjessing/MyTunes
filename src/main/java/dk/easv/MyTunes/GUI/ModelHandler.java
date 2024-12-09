@@ -1,7 +1,7 @@
-package dk.easv.MyTunes_light.GUI;
+package dk.easv.MyTunes.GUI;
 
-import dk.easv.MyTunes_light.GUI.Model.PlaylistModel;
-import dk.easv.MyTunes_light.GUI.Model.SongModel;
+import dk.easv.MyTunes.GUI.Model.PlaylistModel;
+import dk.easv.MyTunes.GUI.Model.SongModel;
 
 public class ModelHandler {
     private static ModelHandler instance;

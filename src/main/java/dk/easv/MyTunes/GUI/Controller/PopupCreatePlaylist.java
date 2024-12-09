@@ -1,15 +1,13 @@
-package dk.easv.MyTunes_light.GUI.Controller;
+package dk.easv.MyTunes.GUI.Controller;
 
-import dk.easv.MyTunes_light.BE.Playlist;
-import dk.easv.MyTunes_light.GUI.Model.PlaylistModel;
-import dk.easv.MyTunes_light.GUI.ModelHandler;
+import dk.easv.MyTunes.BE.Playlist;
+import dk.easv.MyTunes.GUI.Model.PlaylistModel;
+import dk.easv.MyTunes.GUI.ModelHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.awt.desktop.SystemEventListener;
 
 public class PopupCreatePlaylist {
 

@@ -1,9 +1,9 @@
-package dk.easv.MyTunes_light.GUI.Model;
+package dk.easv.MyTunes.GUI.Model;
 
 
-import dk.easv.MyTunes_light.BE.Playlist;
-import dk.easv.MyTunes_light.BE.Song;
-import dk.easv.MyTunes_light.BLL.PlaylistManager;
+import dk.easv.MyTunes.BE.Playlist;
+import dk.easv.MyTunes.BE.Song;
+import dk.easv.MyTunes.BLL.PlaylistManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

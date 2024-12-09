@@ -1,12 +1,9 @@
-package dk.easv.MyTunes_light.BLL;
+package dk.easv.MyTunes.BLL;
 
 
 
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-
-import java.io.IOException;
 
 public class MediaHandler {
 

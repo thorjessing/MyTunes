@@ -1,4 +1,4 @@
-package dk.easv.MyTunes_light.DAL;
+package dk.easv.MyTunes.DAL;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerException;

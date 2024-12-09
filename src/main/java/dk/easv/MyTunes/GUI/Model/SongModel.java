@@ -1,11 +1,10 @@
-package dk.easv.MyTunes_light.GUI.Model;
+package dk.easv.MyTunes.GUI.Model;
 
-import dk.easv.MyTunes_light.BE.Song;
-import dk.easv.MyTunes_light.BLL.SongManager;
+import dk.easv.MyTunes.BE.Song;
+import dk.easv.MyTunes.BLL.SongManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

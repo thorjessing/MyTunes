@@ -1,4 +1,4 @@
-package dk.easv.MyTunes_light.BE;
+package dk.easv.MyTunes.BE;
 
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;

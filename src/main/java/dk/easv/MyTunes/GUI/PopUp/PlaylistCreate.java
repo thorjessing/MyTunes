@@ -1,4 +1,4 @@
-package dk.easv.MyTunes_light.GUI.PopUp;
+package dk.easv.MyTunes.GUI.PopUp;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

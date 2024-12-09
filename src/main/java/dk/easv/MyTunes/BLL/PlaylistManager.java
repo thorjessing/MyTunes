@@ -1,12 +1,8 @@
-package dk.easv.MyTunes_light.BLL;
+package dk.easv.MyTunes.BLL;
 
-import dk.easv.MyTunes_light.BE.Playlist;
-import dk.easv.MyTunes_light.BE.Song;
-import dk.easv.MyTunes_light.DAL.dao.IPlaylistDAO;
-import dk.easv.MyTunes_light.DAL.dao.ISongDAO;
-import dk.easv.MyTunes_light.DAL.dao.PlaylistDAO;
-import dk.easv.MyTunes_light.DAL.dao.SongDAO;
-import dk.easv.MyTunes_light.GUI.Model.PlaylistModel;
+import dk.easv.MyTunes.BE.Playlist;
+import dk.easv.MyTunes.DAL.dao.IPlaylistDAO;
+import dk.easv.MyTunes.DAL.dao.PlaylistDAO;
 
 import java.util.List;
 
