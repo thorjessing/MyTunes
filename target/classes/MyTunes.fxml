@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="450" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.MyTunes_light.GUI.Controller.MyTunesController">
+   <children>
+      <AnchorPane prefHeight="102.0" prefWidth="640.0">
+         <children>
+            <Button fx:id="PauseBTN" layoutX="97.0" layoutY="25.0" mnemonicParsing="false" onAction="#playSongBtn" text="&gt;">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
+            <Button fx:id="RewindBTN" layoutX="40.0" layoutY="25.0" mnemonicParsing="false" onAction="#btnPrevSong" text="Prev" />
+            <Button fx:id="SkipBTN" layoutX="144.0" layoutY="25.0" mnemonicParsing="false" onAction="#btnPlayNext" text="Next" />
+            <Slider fx:id="slidrVol" layoutX="57.0" layoutY="57.0" />
+            <Button fx:id="MuteBTN" layoutX="26.0" layoutY="51.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="28.0" text="Lyd" />
+            <Label layoutX="255.0" layoutY="16.0" prefHeight="0.0" prefWidth="68.0" text="Now playing" />
+            <TextField fx:id="txtFieldSeach" layoutX="691.0" layoutY="24.0" prefHeight="26.0" prefWidth="84.0" />
+            <Button fx:id="searchBTN" layoutX="775.0" layoutY="24.0" mnemonicParsing="false" text="Search" />
+            <Slider fx:id="sliderTime" layoutX="300.0" layoutY="39.0" prefHeight="16.0" prefWidth="242.0" />
+            <Label fx:id="lblCurrentDuration" layoutX="259.0" layoutY="38.0" text="Label" />
+            <Label fx:id="lblMaxDuration" layoutX="549.0" layoutY="38.0" text="Label" />
+            <Label fx:id="lblSongName" layoutX="334.0" layoutY="16.0" />
+         </children>
+      </AnchorPane>
+      <HBox prefHeight="490.0" prefWidth="862.0">
+         <children>
+            <VBox prefHeight="370.0" prefWidth="205.0">
+               <children>
+                  <Label text="Playlist" />
+                  <TableView fx:id="tblViewPlaylist" prefHeight="358.0" prefWidth="206.0">
+                     <columns>
+                        <TableColumn fx:id="playlistNameCol" prefWidth="84.0" text="Name" />
+                        <TableColumn fx:id="playlistSongsCol" prefWidth="41.0" text="Songs" />
+                        <TableColumn fx:id="playlistDurationCol" prefWidth="100.0" text="Duration" />
+                     </columns>
+                  </TableView>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="PL_NEWBTN" mnemonicParsing="false" onAction="#handleCreatePlaylist" text="New...">
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="PL_EDITBTN" mnemonicParsing="false" onAction="#handleAddSongToPlaylist" text="Edit...">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="PL_DELBTN" mnemonicParsing="false" onAction="#btnRemovePlaylist" text="Delete">
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin></Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="370.0" prefWidth="174.0">
+               <children>
+                  <Label text="Songs on Playlist" />
+                  <ListView fx:id="listViewPlaylistSongs" prefHeight="359.0" prefWidth="174.0" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="MoveUpBTN" mnemonicParsing="false" text="^">
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="MoveDownBTN" mnemonicParsing="false" text="v">
+                           <HBox.margin>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </HBox.margin></Button>
+                        <Button fx:id="PL_SO_DELBTN" mnemonicParsing="false" text="Delete">
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin></Button>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <AnchorPane prefHeight="182.0" prefWidth="66.0">
+               <children>
+                  <Button fx:id="AddBTN" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" text="&lt;---" />
+               </children>
+            </AnchorPane>
+            <VBox prefHeight="370.0" prefWidth="388.0">
+               <children>
+                  <Label text="Songs" />
+                  <TableView fx:id="tblViewSongs" prefHeight="358.0" prefWidth="388.0">
+                     <columns>
+                        <TableColumn fx:id="songTitleCol" prefWidth="130.0" text="Title" />
+                        <TableColumn fx:id="songArtistCol" prefWidth="108.0" text="Artist" />
+                        <TableColumn fx:id="songGenreCol" prefWidth="51.0" text="Genre" />
+                        <TableColumn fx:id="songDurationCol" prefWidth="98.0" text="Duration" />
+                     </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="closeBtn" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#btnCloseWindow" prefHeight="26.0" prefWidth="57.0" text="Close">
+               <HBox.margin>
+                  <Insets left="650.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <HBox.margin>
+      <Insets />
+   </HBox.margin>
+</VBox>
