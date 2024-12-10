@@ -21,8 +21,7 @@ public class PopupCreatePlaylist {
 
     @FXML
     private void btnCancel(ActionEvent actionEvent) {
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        stage.close();
+        closeWindow();
     }
 
     @FXML
@@ -30,10 +29,15 @@ public class PopupCreatePlaylist {
         try {
             Playlist playlist = playlistModel.createPlaylist(new Playlist(txtFieldName.getText()));
             playlistModel.addPlaylist(playlist);
+            closeWindow();
         } catch (Exception e) {
             // håndter den her i gui
             throw new RuntimeException(e);
         }
 
+    }
+    private void closeWindow() {
+        Stage stage = (Stage) txtFieldName.getScene().getWindow();
+        stage.close();
     }
 }

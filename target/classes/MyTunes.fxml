@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="450" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.MyTunes_light.GUI.Controller.MyTunesController">
+<VBox prefHeight="450" prefWidth="900.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.MyTunes.GUI.Controller.MyTunesController">
    <children>
       <AnchorPane prefHeight="102.0" prefWidth="640.0">
          <children>
@@ -87,7 +87,7 @@
             </VBox>
             <AnchorPane prefHeight="182.0" prefWidth="66.0">
                <children>
-                  <Button fx:id="AddBTN" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" text="&lt;---" />
+                  <Button fx:id="btnAddSong" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleAddSongToPlaylist" text="&lt;---" />
                </children>
             </AnchorPane>
             <VBox prefHeight="370.0" prefWidth="388.0">

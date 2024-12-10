@@ -150,5 +150,21 @@ public class PlaylistDAO implements IPlaylistDAO {
             throw new Exception("Kunne ikke slette playlist fra database");
         }
     }
+
+    @Override
+    public boolean updatePlaylist(Playlist playlist, Song song) throws Exception {
+        String query = "INSERT INTO Playlist_songs (Playlist_id,Song_id) VALUES(?,?)";
+        try (Connection conn = dbConnecter.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, playlist.getId());
+            stmt.setInt(2, song.getId());
+            stmt.executeUpdate();
+
+            return true;
+        } catch (Exception e) {
+            throw new Exception("Kunne ikke tilføje sange til playlisten");
+        }
+
+    }
 }
 

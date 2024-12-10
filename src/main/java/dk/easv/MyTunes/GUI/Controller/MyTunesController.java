@@ -21,10 +21,13 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MyTunesController implements Initializable {
 
+    @FXML
+    public Button btnAddSong;
     @FXML
     private TableView<Song> tblViewSongs;
     @FXML
@@ -74,7 +77,6 @@ public class MyTunesController implements Initializable {
     private Label lblSongName;
     @FXML
     private TextField txtFieldSeach;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -146,12 +148,19 @@ public class MyTunesController implements Initializable {
     }
 
     @FXML
-    private void handleAddSongToPlaylist() {
+    private void handleAddSongToPlaylist() throws Exception {
         Song selectedSong = tblViewSongs.getSelectionModel().getSelectedItem();
         Playlist selectedPlaylist = tblViewPlaylist.getSelectionModel().getSelectedItem();
-
+        int idx = tblViewPlaylist.getSelectionModel().getSelectedIndex();
         if (selectedSong != null && selectedPlaylist != null) {
-            playlistModel.addSongToPlaylist(selectedPlaylist, selectedSong);
+            boolean update = playlistModel.updatePlaylist(idx, selectedPlaylist, selectedSong);
+            if (!update)
+                return;
+
+            //listViewPlaylistSongs.refresh();
+            observablePlaylistSongs.setAll(selectedPlaylist.getSongs());
+            listViewPlaylistSongs.setItems(observablePlaylistSongs);
+            tblViewPlaylist.refresh();
         }
     }
 
@@ -161,9 +170,10 @@ public class MyTunesController implements Initializable {
 
         if (selectedPlaylist != null) {
             try {
+
                 playlistModel.removePlaylist(selectedPlaylist);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
         }
     }
