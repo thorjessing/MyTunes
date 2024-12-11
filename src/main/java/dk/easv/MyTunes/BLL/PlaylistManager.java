@@ -34,4 +34,8 @@ public class    PlaylistManager {
     public boolean updateSongOrder(Playlist playlist, Song currentSong, Song nextSong) throws Exception {
         return this.playlistDAO.updateSongOrder(playlist, currentSong, nextSong);
     }
+
+    public Playlist editPlaylist(Playlist playlist) throws Exception {
+        return this.playlistDAO.editPlaylist(playlist);
+    }
 }

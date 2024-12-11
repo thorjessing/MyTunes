@@ -232,5 +232,26 @@ public class PlaylistDAO implements IPlaylistDAO {
         }
 
     }
+
+    @Override
+    public Playlist editPlaylist(Playlist playlist) throws Exception {
+        String query = """
+                UPDATE Playlist
+                SET name = ?
+                    WHERE id = ?;
+                """;
+
+        try (Connection conn = dbConnecter.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, playlist.getName());
+            stmt.setInt(2, playlist.getId());
+            stmt.executeUpdate();
+
+            return playlist;
+        } catch (Exception e) {
+            throw new Exception("Kunne ikke opdatere playlisten");
+        }
+    }
 }
 

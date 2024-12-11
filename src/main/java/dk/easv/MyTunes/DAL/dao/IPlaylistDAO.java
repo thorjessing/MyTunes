@@ -18,4 +18,6 @@ public interface IPlaylistDAO {
 
     boolean updateSongOrder(Playlist playlist, Song currentSong, Song nextSong) throws Exception;
 
+    Playlist editPlaylist(Playlist playlist) throws Exception;
+
 }

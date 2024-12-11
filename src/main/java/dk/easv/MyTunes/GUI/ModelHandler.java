@@ -1,5 +1,6 @@
 package dk.easv.MyTunes.GUI;
 
+import dk.easv.MyTunes.BE.Playlist;
 import dk.easv.MyTunes.GUI.Model.PlaylistModel;
 import dk.easv.MyTunes.GUI.Model.SongModel;
 
@@ -8,6 +9,8 @@ public class ModelHandler {
 
     private PlaylistModel playlistModel;
     private SongModel songModel;
+
+    private Playlist selectedPlaylist;
 
     private ModelHandler() throws Exception {
         try {
@@ -38,5 +41,14 @@ public class ModelHandler {
 
     public SongModel getSongModel() {
         return songModel;
+    }
+
+
+    public Playlist getSelectedPlaylist() {
+        return selectedPlaylist;
+    }
+
+    public void setSelectedPlaylist(Playlist selectedPlaylist) {
+        this.selectedPlaylist = selectedPlaylist;
     }
 }

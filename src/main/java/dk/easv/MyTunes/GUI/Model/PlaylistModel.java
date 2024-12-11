@@ -66,4 +66,20 @@ public class PlaylistModel {
         return true;
     }
 
+    public Playlist editPlaylist(Playlist playlist) throws Exception {
+        Playlist updatedPlaylist = playlistManager.editPlaylist(playlist);
+
+        if (playlist != null) {
+            for (int i = 0; i < playlists.size(); i++) {
+                if (playlists.get(i).equals(playlist)) {
+                    playlists.set(i, updatedPlaylist);
+                    break;
+                }
+            }
+        }
+
+        return updatedPlaylist;
+    }
+
+
 }

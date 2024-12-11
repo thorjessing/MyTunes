@@ -65,4 +65,8 @@ public class Playlist {
     public int getId() {
         return id;
     }
+
+    public void setName(String string) {
+        this.name = string;
+    }
 }

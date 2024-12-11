@@ -7,9 +7,11 @@ import dk.easv.MyTunes.GUI.Model.PlaylistModel;
 import dk.easv.MyTunes.GUI.Model.SongModel;
 import dk.easv.MyTunes.GUI.ModelHandler;
 import dk.easv.MyTunes.GUI.PopUp.PlaylistCreate;
+import dk.easv.MyTunes.GUI.PopUp.PlaylistEdit;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -127,6 +129,14 @@ public class MyTunesController implements Initializable {
             }
         });
 
+        //dumme playlist opdater dog navnet
+        observableListPlaylists.addListener((ListChangeListener<Playlist>) change -> {
+            while (change.next()) {
+                if (change.wasUpdated()) {
+                    tblViewPlaylist.refresh();
+                }
+            }
+        });
 
         registerPlaylistChange();
     }
@@ -134,6 +144,7 @@ public class MyTunesController implements Initializable {
     private void registerPlaylistChange() {
         tblViewPlaylist.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, playlist) -> {
             if (playlist != null) {
+                ModelHandler.getInstance().setSelectedPlaylist(playlist);
                 observablePlaylistSongs.setAll(playlist.getSongs());
                 observablePlaylistSongs.sort(Comparator.comparingInt(Song::getOrder));
                 listViewPlaylistSongs.setItems(observablePlaylistSongs);
@@ -372,6 +383,12 @@ public class MyTunesController implements Initializable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    private void btnEditPlaylist(ActionEvent actionEvent) {
+        PlaylistEdit popup = new PlaylistEdit();
+        popup.showPopup();
     }
 }
 
