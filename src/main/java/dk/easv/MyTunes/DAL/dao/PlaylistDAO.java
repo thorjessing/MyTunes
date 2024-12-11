@@ -152,11 +152,14 @@ public class PlaylistDAO implements IPlaylistDAO {
 
     @Override
     public boolean updatePlaylist(Playlist playlist, Song song) throws Exception {
-        String query = "INSERT INTO Playlist_songs (Playlist_id,Song_id) VALUES(?,?)";
+        String query = "INSERT INTO Playlist_songs (Playlist_id,Song_id,order_id) VALUES(?,?,?)";
         try (Connection conn = dbConnecter.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setInt(1, playlist.getId());
             stmt.setInt(2, song.getId());
+
+            //TODO: Ændre denne til at være dynamisk og ikke statisk
+            stmt.setInt(3, 1);
             stmt.executeUpdate();
 
             return true;
