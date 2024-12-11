@@ -305,6 +305,39 @@ public class MyTunesController implements Initializable {
     private void btnCloseWindow(ActionEvent actionEvent) {
         System.exit(0);
     }
+
+    @FXML
+    private void btnMoveUp(ActionEvent actionEvent) {
+        int currentIndex = listViewPlaylistSongs.getSelectionModel().getSelectedIndex();
+
+        int nextSongIndex = currentIndex - 1;
+        int size = listViewPlaylistSongs.getItems().size();
+
+        if (nextSongIndex < 0 || nextSongIndex >= size)
+            return;
+
+        Song currentSong = listViewPlaylistSongs.getSelectionModel().getSelectedItem();
+        Song nextSong = listViewPlaylistSongs.getItems().get(nextSongIndex);
+
+        if (currentSong == null || nextSong == null)
+            return;
+
+        Playlist currentPlaylist = tblViewPlaylist.getSelectionModel().getSelectedItem();
+
+        if (currentPlaylist == null)
+            return;
+
+        try {
+            playlistModel.updateSongOrder(currentPlaylist, currentSong, nextSong);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    private void btnMoveDown(ActionEvent actionEvent) {
+
+    }
 }
 
 

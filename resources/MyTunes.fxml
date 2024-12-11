@@ -69,11 +69,11 @@
                   <ListView fx:id="listViewPlaylistSongs" prefHeight="359.0" prefWidth="174.0" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="MoveUpBTN" mnemonicParsing="false" text="^">
+                        <Button mnemonicParsing="false" onAction="#btnMoveUp" text="^">
                            <HBox.margin>
                               <Insets top="5.0" />
                            </HBox.margin></Button>
-                        <Button fx:id="MoveDownBTN" mnemonicParsing="false" text="v">
+                        <Button mnemonicParsing="false" onAction="#btnMoveDown" text="v">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" top="5.0" />
                            </HBox.margin></Button>

@@ -7,7 +7,6 @@ module com.example.MyTunes_light {
     requires javafx.media;
     requires java.desktop;
 
-
     opens dk.easv.MyTunes to javafx.fxml;
     exports dk.easv.MyTunes;
     exports dk.easv.MyTunes.GUI.Controller;

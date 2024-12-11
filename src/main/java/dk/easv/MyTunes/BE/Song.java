@@ -14,6 +14,10 @@ public class Song {
     private int duration;
     private int year;
 
+
+
+    private int order;
+
     private String path;
 
     private MediaPlayer mediaPlayer;
@@ -27,6 +31,20 @@ public class Song {
         this.genre = genre;
         this.duration = duration;
         this.year = year;
+
+        createMediaPlayer(new File("songs/" + path));
+    }
+
+    public Song(int id, String name, String artist, String path, String album, String genre, int duration, int year, int order) {
+        this.id = id;
+        this.name = name;
+        this.artist = artist;
+        this.path = path;
+        this.album = album;
+        this.genre = genre;
+        this.duration = duration;
+        this.year = year;
+        this.order = order;
 
         createMediaPlayer(new File("songs/" + path));
     }
@@ -126,6 +144,14 @@ public class Song {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
     }
 
     @Override

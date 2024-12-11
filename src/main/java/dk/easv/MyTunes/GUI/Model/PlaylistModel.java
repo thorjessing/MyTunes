@@ -48,14 +48,16 @@ public class PlaylistModel {
         playlist.removeSong(song);
     }
 
+    public boolean updateSongOrder(Playlist playlist, Song currentSong, Song nextSong) throws Exception {
+        return playlistManager.updateSongOrder(playlist, currentSong, nextSong);
+    }
+
+
     public boolean updatePlaylist(int idx, Playlist playlist, Song song) throws Exception {
         boolean didUpdateDB = playlistManager.updatePlaylist(playlist, song);
 
         if (!didUpdateDB)
             return false;
-
-        System.out.println("Tilføjet");
-
 
         addSongToPlaylist(playlist, song);
         return true;
