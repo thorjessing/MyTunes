@@ -184,8 +184,11 @@ public class PlaylistDAO implements IPlaylistDAO {
             int orderIDNew = currentSong.getOrder();
             int orderIDOld = nextSong.getOrder();
 
+            System.out.println(currentSong.getId() + " " + orderIDNew);
+            System.out.println(nextSong.getId() + " " + orderIDOld);
+
             // Update our old value with order id from new playlist.
-            try (PreparedStatement stmtOld = conn.prepareStatement(sql)) {
+            try (PreparedStatement stmtOld = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 stmtOld.setInt(1, currentSong.getOrder());
                 stmtOld.setInt(2, nextSong.getId());
                 stmtOld.setInt(3, playlist.getId());
@@ -193,9 +196,9 @@ public class PlaylistDAO implements IPlaylistDAO {
             }
 
             // Update our new value with order id from old playlist.
-            try (PreparedStatement stmtNew = conn.prepareStatement(sql)) {
-                stmtNew.setInt(1, currentSong.getOrder());
-                stmtNew.setInt(2, nextSong.getId());
+            try (PreparedStatement stmtNew = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                stmtNew.setInt(1, nextSong.getOrder());
+                stmtNew.setInt(2, currentSong.getId());
                 stmtNew.setInt(3, playlist.getId());
                 stmtNew.executeUpdate();
             }

@@ -21,6 +21,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -134,6 +135,7 @@ public class MyTunesController implements Initializable {
         tblViewPlaylist.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, playlist) -> {
             if (playlist != null) {
                 observablePlaylistSongs.setAll(playlist.getSongs());
+                observablePlaylistSongs.sort(Comparator.comparingInt(Song::getOrder));
                 listViewPlaylistSongs.setItems(observablePlaylistSongs);
             }
         });
@@ -329,6 +331,11 @@ public class MyTunesController implements Initializable {
 
         try {
             playlistModel.updateSongOrder(currentPlaylist, currentSong, nextSong);
+            observablePlaylistSongs.setAll(currentPlaylist.getSongs());
+            observablePlaylistSongs.sort(Comparator.comparingInt(Song::getOrder));
+            listViewPlaylistSongs.setItems(observablePlaylistSongs);
+            listViewPlaylistSongs.getSelectionModel().select(nextSong);
+            System.out.println("virker");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -336,7 +343,35 @@ public class MyTunesController implements Initializable {
 
     @FXML
     private void btnMoveDown(ActionEvent actionEvent) {
+        int currentIndex = listViewPlaylistSongs.getSelectionModel().getSelectedIndex();
 
+        int nextSongIndex = currentIndex + 1;
+        int size = listViewPlaylistSongs.getItems().size();
+
+        if (nextSongIndex < 0 || nextSongIndex >= size)
+            return;
+
+        Song currentSong = listViewPlaylistSongs.getSelectionModel().getSelectedItem();
+        Song nextSong = listViewPlaylistSongs.getItems().get(nextSongIndex);
+
+        if (currentSong == null || nextSong == null)
+            return;
+
+        Playlist currentPlaylist = tblViewPlaylist.getSelectionModel().getSelectedItem();
+
+        if (currentPlaylist == null)
+            return;
+
+        try {
+            playlistModel.updateSongOrder(currentPlaylist, currentSong, nextSong);
+            observablePlaylistSongs.setAll(currentPlaylist.getSongs());
+            observablePlaylistSongs.sort(Comparator.comparingInt(Song::getOrder));
+            listViewPlaylistSongs.setItems(observablePlaylistSongs);
+            listViewPlaylistSongs.getSelectionModel().select(nextSong);
+            System.out.println("virker");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 

@@ -7,6 +7,8 @@ import dk.easv.MyTunes.BLL.PlaylistManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.util.Comparator;
+
 public class PlaylistModel {
     private final ObservableList<Playlist> playlists;
     private final PlaylistManager playlistManager;
@@ -19,6 +21,7 @@ public class PlaylistModel {
         }
         playlists = FXCollections.observableArrayList();
         playlists.addAll(playlistManager.getAllPlaylist());
+
     }
 
     public Playlist createPlaylist(Playlist playlist) throws Exception {
