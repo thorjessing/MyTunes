@@ -112,6 +112,9 @@
                   <Insets left="650.0" top="5.0" />
                </HBox.margin>
             </Button>
+            <Button mnemonicParsing="false" onAction="#btnCreateSong" text="New " />
+            <Button fx:id="btnEditSong" mnemonicParsing="false" onAction="#btnEditSong" text="Edit" />
+            <Button mnemonicParsing="false" onAction="#btnDeleteSong" text="Delete" />
          </children>
       </HBox>
    </children>

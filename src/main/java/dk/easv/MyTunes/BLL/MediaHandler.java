@@ -67,7 +67,6 @@ public class MediaHandler {
     }
 
     public String getTimeFromDouble(double val) {
-        //input millisekunder
         double seconds = val;
 
         double secs = seconds % 60;

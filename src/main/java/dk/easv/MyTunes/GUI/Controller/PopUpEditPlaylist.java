@@ -34,7 +34,6 @@ public class PopUpEditPlaylist {
 
             closeWindow();
         } catch (Exception e) {
-            // håndter den her i gui
             throw new RuntimeException(e);
         }
 

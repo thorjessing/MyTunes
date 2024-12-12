@@ -39,4 +39,39 @@ public class SongModel {
         }
         return FXCollections.observableArrayList(searchSongs);
     }
+
+    public Song createSong(Song song) throws Exception {
+        return songManager.createSong(song);
+    }
+
+    public void addSong(Song song) {
+        songs.add(song);
+    }
+
+    public Song editSong(Song song) throws Exception {
+        Song updatedSong = songManager.editSong(song);
+
+        System.out.println(updatedSong.getName());
+
+        if (updatedSong != null) {
+            for (int i = 0; i < allSongs.size(); i++) {
+                if (allSongs.get(i).getId() == updatedSong.getId()) {
+                    allSongs.set(i, updatedSong);
+                    break;
+                }
+            }
+        }
+
+        return updatedSong;
+    }
+
+    public boolean deleteSong(Song song) throws Exception {
+        boolean deleted = songManager.deleteSong(song);
+
+        if (deleted) {
+            allSongs.remove(song);
+        }
+
+        return deleted;
+    }
 }

@@ -14,8 +14,6 @@ public class Song {
     private int duration;
     private int year;
 
-
-
     private int order;
 
     private String path;
@@ -152,6 +150,15 @@ public class Song {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public String getPath() {
+        return this.path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+        createMediaPlayer(new File("songs/" + path));
     }
 
     @Override

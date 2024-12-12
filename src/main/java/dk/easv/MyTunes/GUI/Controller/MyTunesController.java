@@ -3,12 +3,13 @@ package dk.easv.MyTunes.GUI.Controller;
 import dk.easv.MyTunes.BE.Playlist;
 import dk.easv.MyTunes.BE.Song;
 import dk.easv.MyTunes.BLL.MediaHandler;
-import dk.easv.MyTunes.BLL.PlaylistManager;
 import dk.easv.MyTunes.GUI.Model.PlaylistModel;
 import dk.easv.MyTunes.GUI.Model.SongModel;
 import dk.easv.MyTunes.GUI.ModelHandler;
 import dk.easv.MyTunes.GUI.PopUp.PlaylistCreate;
 import dk.easv.MyTunes.GUI.PopUp.PlaylistEdit;
+import dk.easv.MyTunes.GUI.PopUp.SongCreate;
+import dk.easv.MyTunes.GUI.PopUp.SongEdit;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -49,7 +50,7 @@ public class MyTunesController implements Initializable {
     private TableColumn<Song, String> songTitleCol;
 
     @FXML
-    private TableView<Playlist> tblViewPlaylist; // Korrekt Playlist TableView
+    private TableView<Playlist> tblViewPlaylist;
 
     private MediaHandler mediaHandler;
 
@@ -86,6 +87,8 @@ public class MyTunesController implements Initializable {
     private Label lblSongName;
     @FXML
     private TextField txtFieldSeach;
+    @FXML
+    private Button btnEditSong;
 
 
     @Override
@@ -107,11 +110,11 @@ public class MyTunesController implements Initializable {
 
     public MyTunesController() throws Exception {
         songModel = ModelHandler.getInstance().getSongModel();
-        playlistModel = ModelHandler.getInstance().getPlaylistModel(); // Tilføjet initialisering
+        playlistModel = ModelHandler.getInstance().getPlaylistModel();
         mediaHandler = new MediaHandler();
     }
 
-    //definere kolonner typer og smider data i songs
+
     private void populateSongs() {
         songTitleCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         songGenreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
@@ -120,7 +123,7 @@ public class MyTunesController implements Initializable {
         tblViewSongs.setItems(observableListSongs);
     }
 
-    //definerer kolonner typer og smider data i playlister
+
     private void populatePlaylists() {
         playlistNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
         playlistSongsCol.setCellValueFactory(new PropertyValueFactory<>("songCount"));
@@ -136,7 +139,7 @@ public class MyTunesController implements Initializable {
             }
         });
 
-        //dumme playlist opdater dog navnet
+
         observableListPlaylists.addListener((ListChangeListener<Playlist>) change -> {
             while (change.next()) {
                 if (change.wasUpdated()) {
@@ -157,9 +160,7 @@ public class MyTunesController implements Initializable {
                 listViewPlaylistSongs.setItems(observablePlaylistSongs);
             }
         });
-
     }
-
 
     @FXML
     private void handleCreatePlaylist() {
@@ -177,7 +178,6 @@ public class MyTunesController implements Initializable {
             if (!update)
                 return;
 
-            //listViewPlaylistSongs.refresh();
             observablePlaylistSongs.setAll(selectedPlaylist.getSongs());
             listViewPlaylistSongs.setItems(observablePlaylistSongs);
             tblViewPlaylist.refresh();
@@ -264,9 +264,6 @@ public class MyTunesController implements Initializable {
         sliderTime.setMax(songLength);
         lblMaxDuration.setText(song.getLengthString());
 
-        //updateVolumeControl(mediaPlayer);
-
-        // User interaction (single click or touch)
         sliderTime.valueChangingProperty().addListener((observable, oldValue, isChanging) -> {
             wasDragged = isChanging;
             if (!wasDragged) {
@@ -275,31 +272,25 @@ public class MyTunesController implements Initializable {
             }
         });
 
-        // User dragging the slider
         sliderTime.valueProperty().addListener((observable, oldTime, newTime) -> {
             if (wasDragged && sliderTime.isValueChanging()) {
                 lblCurrentDuration.setText(mediaHandler.getTimeFromDouble(newTime.doubleValue()));
             }
 
-            // Check if the slider was clicked or dragged
             wasClicked = Math.abs(oldTime.doubleValue() - newTime.doubleValue()) > 10;
 
-            // This causes CMTimeMakeWithSeconds warning... not sure why
             if (!sliderTime.isValueChanging() && !wasDragged && wasClicked)
                 mediaPlayer.seek(new Duration(newTime.doubleValue() * 1000));
         });
 
-        // Listener for mediaplayer
         mediaPlayer.currentTimeProperty().addListener((observable, oldTime, newTime) -> {
             if (wasDragged && wasClicked)
                 return;
 
-            // Check if it's time to play the next song
             boolean playNextSong = sliderTime.getMax() - 1 < newTime.toSeconds();
             if (playNextSong)
                 playNextSong(true);
 
-            // Update UI
             lblCurrentDuration.setText(mediaHandler.getTimeFromDouble(newTime.toSeconds()));
             sliderTime.setValue(newTime.toSeconds());
         });
@@ -353,7 +344,6 @@ public class MyTunesController implements Initializable {
             observablePlaylistSongs.sort(Comparator.comparingInt(Song::getOrder));
             listViewPlaylistSongs.setItems(observablePlaylistSongs);
             listViewPlaylistSongs.getSelectionModel().select(nextSong);
-            System.out.println("virker");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -386,7 +376,6 @@ public class MyTunesController implements Initializable {
             observablePlaylistSongs.sort(Comparator.comparingInt(Song::getOrder));
             listViewPlaylistSongs.setItems(observablePlaylistSongs);
             listViewPlaylistSongs.getSelectionModel().select(nextSong);
-            System.out.println("virker");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -427,6 +416,59 @@ public class MyTunesController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void btnCreateSong(ActionEvent actionEvent) {
+        SongCreate songCreate = new SongCreate();
+        songCreate.showPopup();
+    }
+
+    @FXML
+    private void btnEditSong(ActionEvent actionEvent) {
+        Song selected = tblViewSongs.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            showAlert("Fejl", "Ingen sang valgt.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        ModelHandler.getInstance().setSelectedSong(selected);
+
+        SongEdit songEdit = new SongEdit();
+        songEdit.showPopup();
+    }
+
+    @FXML
+    private void btnDeleteSong(ActionEvent actionEvent) {
+        Song selectedSong = tblViewSongs.getSelectionModel().getSelectedItem();
+
+        if (selectedSong == null) {
+            showAlert("Fejl", "Ingen sang valgt.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        try {
+            songModel.deleteSong(selectedSong);
+
+            Playlist playlist = tblViewPlaylist.getSelectionModel().getSelectedItem();
+            if (playlist != null) {
+                playlist.getSongs().remove(selectedSong);
+
+                observablePlaylistSongs.setAll(playlist.getSongs());
+                observablePlaylistSongs.sort(Comparator.comparingInt(Song::getOrder));
+                listViewPlaylistSongs.setItems(observablePlaylistSongs);
+            }
+
+            tblViewSongs.setItems(songModel.getSongs());
+            tblViewPlaylist.refresh();
+
+            tblViewSongs.refresh();
+
+        } catch (Exception e) {
+            showAlert("Fejl", e.getMessage(), Alert.AlertType.ERROR);
+
+        }
     }
 }
 

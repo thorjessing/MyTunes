@@ -5,7 +5,6 @@ import dk.easv.MyTunes.GUI.Model.PlaylistModel;
 import dk.easv.MyTunes.GUI.ModelHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -31,7 +30,6 @@ public class PopupCreatePlaylist {
             playlistModel.addPlaylist(playlist);
             closeWindow();
         } catch (Exception e) {
-            // håndter den her i gui
             throw new RuntimeException(e);
         }
 

@@ -41,6 +41,4 @@ public class DBConnecter {
             System.out.println("open = " + !connection.isClosed());
         } //Connection gets closed here
     }
-
-    // kommentar
 }

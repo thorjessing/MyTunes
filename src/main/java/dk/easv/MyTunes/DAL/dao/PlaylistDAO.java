@@ -1,6 +1,5 @@
 package dk.easv.MyTunes.DAL.dao;
 
-
 import dk.easv.MyTunes.BE.Playlist;
 import dk.easv.MyTunes.BE.Song;
 import dk.easv.MyTunes.DAL.DBConnecter;
@@ -162,7 +161,6 @@ public class PlaylistDAO implements IPlaylistDAO {
             stmt.setInt(1, playlist.getId());
             stmt.setInt(2, song.getId());
 
-            //TODO: Ændre denne til at være dynamisk og ikke statisk
             stmt.setInt(3, 1);
             stmt.executeUpdate();
 
@@ -177,9 +175,6 @@ public class PlaylistDAO implements IPlaylistDAO {
     public boolean updateSongOrder(Playlist playlist, Song currentSong, Song nextSong) throws Exception {
         String sql = "UPDATE Playlist_songs SET order_id = ? WHERE Song_id = ? AND Playlist_id = ?;";
 
-        // Create connection here, so we can check later
-        // In the catch statements.
-
         Connection conn = null;
         try {
             conn = dbConnecter.getConnection();
@@ -188,10 +183,6 @@ public class PlaylistDAO implements IPlaylistDAO {
             int orderIDNew = currentSong.getOrder();
             int orderIDOld = nextSong.getOrder();
 
-            System.out.println(currentSong.getId() + " " + orderIDNew);
-            System.out.println(nextSong.getId() + " " + orderIDOld);
-
-            // Update our old value with order id from new playlist.
             try (PreparedStatement stmtOld = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 stmtOld.setInt(1, currentSong.getOrder());
                 stmtOld.setInt(2, nextSong.getId());
@@ -199,7 +190,6 @@ public class PlaylistDAO implements IPlaylistDAO {
                 stmtOld.executeUpdate();
             }
 
-            // Update our new value with order id from old playlist.
             try (PreparedStatement stmtNew = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                 stmtNew.setInt(1, nextSong.getOrder());
                 stmtNew.setInt(2, currentSong.getId());
@@ -207,9 +197,8 @@ public class PlaylistDAO implements IPlaylistDAO {
                 stmtNew.executeUpdate();
             }
 
-            conn.commit();  // If both updates succeed, commit the transaction
+            conn.commit();
 
-            // Update order_id values in array
             currentSong.setOrder(orderIDOld);
             nextSong.setOrder(orderIDNew);
 
@@ -267,7 +256,6 @@ public class PlaylistDAO implements IPlaylistDAO {
             stmt.setInt(2, song.getId());
             stmt.executeUpdate();
 
-            System.out.println("Sang med ID " + song.getId() + " blev slettet fra playliste med ID " + playlist.getId());
             return true;
         } catch (Exception e) {
             throw new Exception("Kunne ikke slette sang fra playliste");
