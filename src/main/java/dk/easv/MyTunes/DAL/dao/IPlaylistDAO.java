@@ -20,4 +20,6 @@ public interface IPlaylistDAO {
 
     Playlist editPlaylist(Playlist playlist) throws Exception;
 
+    boolean deleteSongFromPlaylist(Playlist playlist, Song song) throws Exception;
+
 }

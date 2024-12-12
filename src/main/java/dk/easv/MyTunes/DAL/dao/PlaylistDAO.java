@@ -1,5 +1,6 @@
 package dk.easv.MyTunes.DAL.dao;
 
+
 import dk.easv.MyTunes.BE.Playlist;
 import dk.easv.MyTunes.BE.Song;
 import dk.easv.MyTunes.DAL.DBConnecter;
@@ -7,6 +8,9 @@ import dk.easv.MyTunes.DAL.DBConnecter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 public class PlaylistDAO implements IPlaylistDAO {
     private final DBConnecter dbConnecter;
@@ -251,6 +255,22 @@ public class PlaylistDAO implements IPlaylistDAO {
             return playlist;
         } catch (Exception e) {
             throw new Exception("Kunne ikke opdatere playlisten");
+        }
+    }
+
+    public boolean deleteSongFromPlaylist(Playlist playlist, Song song) throws Exception {
+        String sql = "DELETE FROM Playlist_songs WHERE playlist_id = ? AND song_id = ?";
+        try (Connection conn = dbConnecter.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, playlist.getId());
+            stmt.setInt(2, song.getId());
+            stmt.executeUpdate();
+
+            System.out.println("Sang med ID " + song.getId() + " blev slettet fra playliste med ID " + playlist.getId());
+            return true;
+        } catch (Exception e) {
+            throw new Exception("Kunne ikke slette sang fra playliste");
         }
     }
 }

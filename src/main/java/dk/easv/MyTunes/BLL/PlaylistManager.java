@@ -38,4 +38,10 @@ public class    PlaylistManager {
     public Playlist editPlaylist(Playlist playlist) throws Exception {
         return this.playlistDAO.editPlaylist(playlist);
     }
+
+    public boolean deleteSongFromPlaylist(Playlist playlist, Song song) throws Exception {
+      return playlistDAO.deleteSongFromPlaylist(playlist, song);
+    }
+
 }
+

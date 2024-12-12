@@ -3,6 +3,7 @@ package dk.easv.MyTunes.GUI.Controller;
 import dk.easv.MyTunes.BE.Playlist;
 import dk.easv.MyTunes.BE.Song;
 import dk.easv.MyTunes.BLL.MediaHandler;
+import dk.easv.MyTunes.BLL.PlaylistManager;
 import dk.easv.MyTunes.GUI.Model.PlaylistModel;
 import dk.easv.MyTunes.GUI.Model.SongModel;
 import dk.easv.MyTunes.GUI.ModelHandler;
@@ -23,9 +24,14 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 import java.net.URL;
+
 import java.util.Comparator;
-import java.util.List;
+
 import java.util.ResourceBundle;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 
 public class MyTunesController implements Initializable {
 
@@ -80,6 +86,7 @@ public class MyTunesController implements Initializable {
     private Label lblSongName;
     @FXML
     private TextField txtFieldSeach;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -389,6 +396,37 @@ public class MyTunesController implements Initializable {
     private void btnEditPlaylist(ActionEvent actionEvent) {
         PlaylistEdit popup = new PlaylistEdit();
         popup.showPopup();
+    }
+
+    @FXML
+    private void btnDeleteSongPlaylist(ActionEvent actionEvent) {
+        Playlist selectedPlaylist = tblViewPlaylist.getSelectionModel().getSelectedItem();
+        Song selectedSong = listViewPlaylistSongs.getSelectionModel().getSelectedItem();
+
+        if (selectedPlaylist != null && selectedSong != null) {
+            try {
+                playlistModel.deleteSongFromPlaylist(selectedPlaylist, selectedSong);
+
+                selectedPlaylist.removeSong(selectedSong);
+                observablePlaylistSongs.remove(selectedSong);
+
+                tblViewPlaylist.refresh();
+
+                showAlert("Sletning lykkedes", "Sangen blev fjernet fra playlisten.", Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                showAlert("Fejl", "Kunne ikke slette sangen fra playlisten.", Alert.AlertType.ERROR);
+            }
+        } else {
+            showAlert("Advarsel", "Vælg en sang og en playliste for at slette.", Alert.AlertType.WARNING);
+        }
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
 

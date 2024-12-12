@@ -81,5 +81,8 @@ public class PlaylistModel {
         return updatedPlaylist;
     }
 
+    public boolean deleteSongFromPlaylist(Playlist playlist, Song song) throws Exception {
+        return playlistManager.deleteSongFromPlaylist(playlist, song);
+    }
 
 }
